@@ -1,5 +1,6 @@
 package java.servlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ import java.io.PrintWriter;
 /**
  * Created by Kate on 13.09.2016.
  */
-@WebServlet("/web")
+@WebServlet("/web-app/servlet")
 public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -23,8 +24,13 @@ public class Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
 
-        out.println("Test Text on My Web");
+        String varTextA = "Just Test Text";
+        request.setAttribute("textA", varTextA);
+        String varTextB = "It JSP.";
+        request.setAttribute("textB", varTextB);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        dispatcher.forward(request, response);
     }
 }
